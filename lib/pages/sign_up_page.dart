@@ -21,7 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(21.0),
           child: ListView(
             children: [
               Text(
