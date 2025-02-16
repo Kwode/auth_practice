@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/pages/sign_in_page.dart';
 import 'package:my_todo_app/pages/sign_up_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() {
   runApp(const MyApp());
