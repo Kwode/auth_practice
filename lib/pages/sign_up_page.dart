@@ -26,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
             children: [
               Text(
                 "Sign Up",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
@@ -64,8 +65,9 @@ class _SignUpPageState extends State<SignUpPage> {
               TextField(
                 decoration: InputDecoration(
                   hintText: "Enter Password",
-                  border: OutlineInputBorder()
+                  border: OutlineInputBorder(),
                 ),
+                obscureText: true,
               ),
 
               SizedBox(height: 20,),
@@ -75,7 +77,53 @@ class _SignUpPageState extends State<SignUpPage> {
                   hintText: "Confirm Password",
                   border: OutlineInputBorder()
                 ),
+                obscureText: true,
               ),
+
+              SizedBox(height: 40,),
+
+              Center(
+                child: GestureDetector(
+                  onTap: (){},
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    height: 50,
+                    width: 300,
+                      child: Center(
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                      ),
+                  ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 10,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Already signed up?"),
+
+                  SizedBox(width: 5,),
+
+                  Text(
+                    "Sign In",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

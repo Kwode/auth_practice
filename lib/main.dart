@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_todo_app/pages/home_page.dart';
 import 'package:my_todo_app/pages/sign_in_page.dart';
 import 'package:my_todo_app/pages/sign_up_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,10 +23,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
+      home: HomePage(),
       routes: {
-        "./signup": (context) => SignUpPage(),
-        "./signin": (context) => SignInPage(),
+        "signup": (context) => SignUpPage(),
+        "signin": (context) => SignInPage(),
       },
     );
   }
