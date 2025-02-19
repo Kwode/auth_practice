@@ -19,30 +19,19 @@ class HomePage extends StatelessWidget {
 
               SizedBox(height: 100,),
 
-              Center(
-                child: GestureDetector(
-                  onTap: () => {
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.black,
+                ),
+                  onPressed: () => {
                     Navigator.pushNamed(context, "signup")
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: 50,
-                    width: 300,
-                    child: Center(
-                      child: Text(
-                        "Get Started",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
+                  child: Text(
+                    "Get Started",
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
-                ),
               ),
 
               SizedBox(height: 10,),
@@ -54,13 +43,7 @@ class HomePage extends StatelessWidget {
 
                   SizedBox(width: 5,),
 
-                  Text(
-                    "Sign In",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline
-                    ),
-                  ),
+                  // TextButton(onPressed: onPressed, child: child)
                 ],
               )
             ],
