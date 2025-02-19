@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("WELCOME TO MY APP!", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+              Text(user.email!, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
 
               SizedBox(height: 100,),
 
@@ -24,10 +28,10 @@ class HomePage extends StatelessWidget {
                   backgroundColor: Colors.black,
                 ),
                   onPressed: () => {
-                    Navigator.pushNamed(context, "signup")
+                    FirebaseAuth.instance.signOut()
                   },
                   child: Text(
-                    "Get Started",
+                    "Log Out",
                     style: TextStyle(
                       color: Colors.white,
                     ),

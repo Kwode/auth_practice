@@ -1,16 +1,50 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  SignInPage({super.key});
 
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final email = TextEditingController();
 
-  final TextEditingController username = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final password = TextEditingController();
+
+  //function to sign user in
+  void signIn() async{
+
+    //show loading circle
+    showDialog(
+      context: context,
+      builder: (context){
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    );
+
+    //sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text,
+          password: password.text
+      );
+      //remove loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      //remove loading circle
+      Navigator.pop(context);
+      if(e.code == "user-not-found"){
+        print("Wrong Email");
+      }
+      else if(e.code == "wrong-password"){
+        print("Wrong Password");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +52,7 @@ class _SignInPageState extends State<SignInPage> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Sign In",
@@ -28,8 +63,10 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
 
+            SizedBox(height: 30,),
+
             TextField(
-              controller: username,
+              controller: email,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Enter Email",
@@ -51,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
 
             Center(
               child: GestureDetector(
-                onTap: (){},
+                onTap: signIn,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black,
