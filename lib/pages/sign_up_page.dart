@@ -8,10 +8,22 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController username = TextEditingController();
-  final TextEditingController name = TextEditingController();
-  final TextEditingController email = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final username = TextEditingController();
+  final name = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+
+  void signUp() async{
+    //show loading circle
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
               Center(
                 child: GestureDetector(
-                  onTap: (){},
+                  onTap: signUp,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black,

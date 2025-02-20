@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
-  SignInPage({super.key});
+  const SignInPage({super.key});
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -18,14 +18,13 @@ class _SignInPageState extends State<SignInPage> {
 
     //show loading circle
     showDialog(
-      context: context,
-      builder: (context){
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
+        context: context,
+        builder: (context){
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
     );
-
     //sign in
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(

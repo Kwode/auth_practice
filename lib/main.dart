@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: AuthGate(),
+      home: SignUpPage(),
       routes: {
         "signup": (context) => SignUpPage(),
         "signin": (context) => SignInPage(),
