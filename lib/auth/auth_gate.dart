@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/pages/home_page.dart';
-import 'package:my_todo_app/pages/sign_in_page.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import '../pages/sign_in_or_sign_up_page.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -20,7 +19,7 @@ class AuthGate extends StatelessWidget {
 
           //if user is not logged in
           else{
-            return SignInPage();
+            return SignInOrSignUpPage();
           }
         },
     );

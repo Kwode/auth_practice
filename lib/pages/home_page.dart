@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
+
+  void logout(){
+    FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +30,7 @@ class HomePage extends StatelessWidget {
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.black,
                 ),
-                  onPressed: () => {
-                    FirebaseAuth.instance.signOut()
-                  },
+                  onPressed: logout,
                   child: Text(
                     "Log Out",
                     style: TextStyle(
@@ -37,19 +38,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
               ),
-
-              SizedBox(height: 10,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Already signed up?"),
-
-                  SizedBox(width: 5,),
-
-                  // TextButton(onPressed: onPressed, child: child)
-                ],
-              )
             ],
           ),
         ),

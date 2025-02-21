@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/auth/auth_gate.dart';
-import 'package:my_todo_app/pages/sign_in_page.dart';
-import 'package:my_todo_app/pages/sign_up_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -25,11 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
-      routes: {
-        "signup": (context) => SignUpPage(),
-        "signin": (context) => SignInPage(),
-      },
+      home: AuthGate(),
     );
   }
 }

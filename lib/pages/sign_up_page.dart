@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  final Function()? onTap;
+  const SignUpPage({super.key, required this.onTap});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -12,6 +14,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final name = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
+  final confirmPassword = TextEditingController();
 
   void signUp() async{
     //show loading circle
@@ -23,6 +26,34 @@ class _SignUpPageState extends State<SignUpPage> {
           );
         }
     );
+
+    //sign up
+    try {
+      //check if passwords match
+      if(password.text == confirmPassword.text){
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email.text,
+            password: password.text
+        );
+      }
+
+      else
+      {
+        print("Passwords don't match");
+      }
+
+      //remove loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      //remove loading circle
+      Navigator.pop(context);
+      if(e.code == "user-not-found"){
+        print("Wrong Email");
+      }
+      else if(e.code == "wrong-password"){
+        print("Wrong Password");
+      }
+    }
   }
 
   @override
@@ -48,6 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 30,),
 
               TextField(
+                controller: name,
                 decoration: InputDecoration(
                   hintText: "Enter Full Name",
                   border: OutlineInputBorder(),
@@ -57,6 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 20,),
 
               TextField(
+                controller: email,
                 decoration: InputDecoration(
                   hintText: "Enter Email",
                   border: OutlineInputBorder()
@@ -66,6 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 20,),
 
               TextField(
+                controller: username,
                 decoration: InputDecoration(
                   hintText: "Enter Username",
                   border: OutlineInputBorder()
@@ -75,6 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 20,),
 
               TextField(
+                controller: password,
                 decoration: InputDecoration(
                   hintText: "Enter Password",
                   border: OutlineInputBorder(),
@@ -85,6 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 20,),
 
               TextField(
+                controller: confirmPassword,
                 decoration: InputDecoration(
                   hintText: "Confirm Password",
                   border: OutlineInputBorder()
@@ -127,11 +163,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   SizedBox(width: 5,),
 
-                  Text(
-                    "Sign In",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text(
+                      "Sign In",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ],

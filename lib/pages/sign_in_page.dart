@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  final Function()? onTap;
+  const SignInPage({super.key, required this.onTap});
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -10,8 +11,19 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final email = TextEditingController();
-
   final password = TextEditingController();
+  
+  //function to display error
+  void showMessage(){
+    showDialog(
+        context: context, 
+        builder: (context){
+          return AlertDialog(
+            title: Text("message"),
+          );
+        }
+    );
+  }
 
   //function to sign user in
   void signIn() async{
@@ -25,6 +37,7 @@ class _SignInPageState extends State<SignInPage> {
           );
         }
     );
+    
     //sign in
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -36,11 +49,18 @@ class _SignInPageState extends State<SignInPage> {
     } on FirebaseAuthException catch (e) {
       //remove loading circle
       Navigator.pop(context);
-      if(e.code == "user-not-found"){
-        print("Wrong Email");
+      if(e.code == 'user-not-found'){
+        showDialog(
+            context: context, 
+            builder: (context){
+              return AlertDialog(
+                title: Text("Incorrect Email"),
+              );
+            }
+        );
       }
-      else if(e.code == "wrong-password"){
-        print("Wrong Password");
+      else if(e.code == 'wrong-password'){
+        print("Wrong password");
       }
     }
   }
@@ -83,7 +103,22 @@ class _SignInPageState extends State<SignInPage> {
               obscureText: true,
             ),
 
-            SizedBox(height: 40,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                    onPressed: (){},
+                    child: Text(
+                      "Forgot Password",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                )
+              ],
+            ),
+
+            SizedBox(height: 10,),
 
             Center(
               child: GestureDetector(
@@ -111,20 +146,6 @@ class _SignInPageState extends State<SignInPage> {
 
             SizedBox(height: 10,),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                    onPressed: (){},
-                    child: Text(
-                        "Forgot Password",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline
-                      ),
-                    ),
-                ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -132,17 +153,17 @@ class _SignInPageState extends State<SignInPage> {
 
                     SizedBox(width: 5,),
 
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                            color: Colors.blue,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            )
           ],
         ),
       ),
